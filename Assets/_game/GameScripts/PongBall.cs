@@ -12,15 +12,27 @@ namespace Mangos
 
         public float respawnTime;
         public float Velocity = 5f;
+        public float increments = 0.5f;
 
         private int lastScore;
+        private Vector3 verticalCol;
+        private Vector3 horizontalCol;
 
         Rigidbody2D rigi;
         // Use this for initialization
         void Start()
         {
+            verticalCol = new Vector3(-1, 1, 0);
+            horizontalCol = new Vector3(1, -1, 0);
+
             rigi = GetComponent<Rigidbody2D>();
             lastScore = 0;
+            StartVelocity();
+        }
+
+        public void StartVelocity()
+        {
+            rigi.velocity = new Vector3(1, Random.Range(0.1f, lastScore == 0 ? -1 : 1), 0) * Velocity;
         }
 
         // Update is called once per frame
@@ -29,19 +41,26 @@ namespace Mangos
 
         }
 
-        public void ReSpawn()
+        public void Respawn()
         {
             gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(true);
-            rigi.velocity = new Vector3(1, Random.Range(0.1f, lastScore == 0 ? -1 : 1), 0);
+            StartVelocity();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.CompareTag("Wall"))
-                rigi.velocity *= new Vector3(-1, 1, 0);
+            if (collision.CompareTag("Wall"))
+            {
+                rigi.velocity = Vector3.Scale(rigi.velocity, verticalCol);
+                OnBallHit.Raise();
+            }
+
             if (collision.CompareTag("Ceiling"))
-                rigi.velocity *= new Vector3(1, -1, 0);
+            {
+                rigi.velocity = Vector3.Scale(rigi.velocity, horizontalCol);
+                OnBallHit.Raise();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -61,7 +80,6 @@ namespace Mangos
                 gameObject.SetActive(false);
                 rigi.velocity = Vector3.zero;
                 Invoke("Respawn", respawnTime);
-                
             }
 
             
