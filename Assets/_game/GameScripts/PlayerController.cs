@@ -11,6 +11,11 @@ namespace Mangos
         public KeyCode up;
         public KeyCode down;
 
+        private void Awake()
+        {
+            PlayerSpawnManager.SetMeUp(this);
+        }
+
         // Update is called once per frame
         void Update()
         {

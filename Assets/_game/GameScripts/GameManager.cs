@@ -7,12 +7,23 @@ namespace Mangos
     public class GameManager : MonoBehaviour
     {
         public FloatVariable p1Score, p2Score;
+        public GameEvent gameStart;
+
+        private void Awake()
+        {
+            PlayerSpawnManager.gameManager = this;
+        }
 
         // Use this for initialization
         void Start()
         {
             p1Score.value = 0;
             p2Score.value = 0;
+        }
+
+        public void StartGame()
+        {
+            gameStart.Raise();
         }
 
         // Update is called once per frame

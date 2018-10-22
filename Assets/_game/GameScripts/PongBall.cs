@@ -22,6 +22,11 @@ namespace Mangos
         // Use this for initialization
         void Start()
         {
+
+        }
+
+        public void StartGame()
+        {
             verticalCol = new Vector3(-1, 1, 0);
             horizontalCol = new Vector3(1, -1, 0);
 
