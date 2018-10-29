@@ -8,7 +8,7 @@ namespace Mangos
     {
         public FloatVariable p1Score, p2Score;
         public GameEvent gameStart;
-
+        
         private void Awake()
         {
             PlayerSpawnManager.gameManager = this;

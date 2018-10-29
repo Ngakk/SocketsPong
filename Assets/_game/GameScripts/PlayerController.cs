@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Mangos
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
         public float MoveSpeed = 5f;
         public float yLimits;
@@ -16,9 +17,21 @@ namespace Mangos
             PlayerSpawnManager.SetMeUp(this);
         }
 
+        public override void OnStartLocalPlayer()
+        {
+            var comps = GetComponentsInChildren<MeshRenderer>();
+            for(int i = 0; i < comps.Length; i++)
+            {
+                comps[i].material.color = Color.blue;
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
+
+            if (!isLocalPlayer)
+                return;
 
             if (Input.GetKey(up))
             {

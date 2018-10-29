@@ -85,9 +85,7 @@ namespace Mangos
                 gameObject.SetActive(false);
                 rigi.velocity = Vector3.zero;
                 Invoke("Respawn", respawnTime);
-            }
-
-            
+            }       
 
         }
     }
