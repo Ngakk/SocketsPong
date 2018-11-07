@@ -26,7 +26,6 @@ namespace Mangos
             horizontalCol = new Vector3(1, -1, 0);
             rigi = GetComponent<Rigidbody2D>();
             lastScore = 0;
-            
         }
 
         public void StartGame()
