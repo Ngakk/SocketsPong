@@ -22,22 +22,21 @@ namespace Mangos
         // Use this for initialization
         void Start()
         {
-
+            verticalCol = new Vector3(-1, 1, 0);
+            horizontalCol = new Vector3(1, -1, 0);
+            rigi = GetComponent<Rigidbody2D>();
+            lastScore = 0;
+            
         }
 
         public void StartGame()
         {
-            verticalCol = new Vector3(-1, 1, 0);
-            horizontalCol = new Vector3(1, -1, 0);
-
-            rigi = GetComponent<Rigidbody2D>();
-            lastScore = 0;
             StartVelocity();
         }
 
         public void StartVelocity()
         {
-            rigi.velocity = new Vector3(1, Random.Range(0.1f, lastScore == 0 ? -1 : 1), 0) * Velocity;
+            rigi.velocity = new Vector3(1, 0, 0) * Velocity;
         }
 
         // Update is called once per frame
@@ -58,6 +57,11 @@ namespace Mangos
             if (collision.CompareTag("Wall"))
             {
                 rigi.velocity = Vector3.Scale(rigi.velocity, verticalCol);
+                Rigidbody2D colRigi = collision.GetComponent<Rigidbody2D>();
+                if(colRigi)
+                {
+                    rigi.velocity = colRigi.velocity.normalized * increments;
+                }
                 OnBallHit.Raise();
             }
 

@@ -1,42 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 
 namespace Mangos
 {
-    public class PlayerSpawnManager : MonoBehaviour
+    public class PlayerSpawnManager : NetworkManager
     {
-        static PlayerController player1;
-        static PlayerController player2;
-        static List<PlayerController>  spectators = new List<PlayerController>();
+        private PlayerController player1;
+        private PlayerController player2;
+        private List<PlayerController> spectators = new List<PlayerController>();
 
-        static Vector3 p1StartPos = new Vector3(-8.5f, 0, 0);
-        static Vector3 p2StartPos = new Vector3(8.5f, 0, 0);
+        private Vector3 p1StartPos = new Vector3(-8.5f, 0, 0);
+        private Vector3 p2StartPos = new Vector3(8.5f, 0, 0);
 
-        static public GameManager gameManager;
-
-        static public void SetMeUp(PlayerController newPlayer)
+        public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
         {
-            if (player1 == null)
-            {
-                player1 = newPlayer;
-                newPlayer.transform.position = p1StartPos;
-                Debug.Log("Player 1 connected, pos: " + newPlayer.transform.position);
-            }
-            else if (player2 == null)
-            {
-                player2 = newPlayer;
-                player2.transform.position = p2StartPos;
-                Debug.Log("Player 2 connected, pos: " + newPlayer.transform.position);
-                gameManager.StartGame();
-            }
+            Vector3 posTo;
+            if (numPlayers == 0)
+                posTo = p1StartPos;
+            else if (numPlayers == 1)
+                posTo = p2StartPos;
             else
-            {
-                spectators.Add(newPlayer);
-                newPlayer.gameObject.SetActive(false);
-            }
+                return;
+            GameObject player = (GameObject)Instantiate(playerPrefab, posTo, Quaternion.identity);
+            NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+        }
 
+        public override void OnServerReady(NetworkConnection conn)
+        {
+            base.OnServerReady(conn);
+            Debug.Log("server ready: " + NetworkServer.connections.Count);
+            if (NetworkServer.connections.Count == 2)
+                Invoke("StartGame", 1);
+        }
+
+        public override void OnClientConnect(NetworkConnection conn)
+        {
+            base.OnClientConnect(conn);
+            Debug.Log("client connect: " + NetworkServer.connections.Count);
+        }
+
+        public override void OnClientDisconnect(NetworkConnection conn)
+        {
+            NetworkServer.SetClientReady(conn);
+            Debug.Log("Someone disconnected: " + NetworkServer.connections.Count);
+        }
+
+        private void StartGame()
+        {
+            StaticManager.gameManager.CmdStartGame();
         }
     }
 }

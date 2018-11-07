@@ -12,13 +12,12 @@ namespace Mangos
         public KeyCode up;
         public KeyCode down;
 
-        private void Awake()
-        {
-            PlayerSpawnManager.SetMeUp(this);
-        }
+        private Rigidbody2D rigi;
+
 
         public override void OnStartLocalPlayer()
         {
+            rigi = GetComponent<Rigidbody2D>();
             var comps = GetComponentsInChildren<MeshRenderer>();
             for(int i = 0; i < comps.Length; i++)
             {
@@ -35,15 +34,19 @@ namespace Mangos
 
             if (Input.GetKey(up))
             {
-                transform.Translate(Vector3.up * MoveSpeed * Time.deltaTime);
+                rigi.velocity = Vector3.up * MoveSpeed;
             }
-
-
-            if (Input.GetKey(down))
+            else if (Input.GetKey(down))
             {
-                transform.Translate(Vector3.down * MoveSpeed * Time.deltaTime);
+                rigi.velocity = Vector3.down * MoveSpeed;
+            }
+            else
+            {
+                rigi.velocity = Vector3.zero;
             }
 
         }
+
+        
     }
 }

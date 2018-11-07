@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Mangos
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : NetworkBehaviour
     {
         public FloatVariable p1Score, p2Score;
         public GameEvent gameStart;
         
         private void Awake()
         {
-            PlayerSpawnManager.gameManager = this;
+            StaticManager.gameManager = this;
         }
 
         // Use this for initialization
@@ -21,9 +22,16 @@ namespace Mangos
             p2Score.value = 0;
         }
 
+        [Command]
+        public void CmdStartGame()
+        {
+            StartGame();
+        }
+
         public void StartGame()
         {
             gameStart.Raise();
+            Debug.Log("Started Game");
         }
 
         // Update is called once per frame
@@ -40,9 +48,13 @@ namespace Mangos
         public void OnScore(int player)
         {
             if (player == 0)
+            {
                 p1Score.value++;
+            }
             else
+            {
                 p2Score.value++;
+            }
         }
     }
 }
