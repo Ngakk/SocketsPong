@@ -685,7 +685,7 @@ Prefab:
     - target: {fileID: 114873039645578816, guid: 6f211b624aa431d46b37db0d3616ef82,
         type: 2}
       propertyPath: m_ServerOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114873039645578816, guid: 6f211b624aa431d46b37db0d3616ef82,
         type: 2}
@@ -1027,7 +1027,7 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!1 &2039772218
 GameObject:

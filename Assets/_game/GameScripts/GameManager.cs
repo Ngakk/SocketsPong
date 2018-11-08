@@ -22,8 +22,8 @@ namespace Mangos
             p2Score.value = 0;
         }
 
-        [Command]
-        public void CmdStartGame()
+        [ClientRpc]
+        public void RpcStartGame()
         {
             StartGame();
         }
