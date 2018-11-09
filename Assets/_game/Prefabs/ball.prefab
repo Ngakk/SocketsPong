@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 50713861923153772}
   - component: {fileID: 114820414435588186}
   - component: {fileID: 61703330687602860}
-  - component: {fileID: 114386080636956542}
   - component: {fileID: 114873039645578816}
   - component: {fileID: 114997386082761972}
   m_Layer: 0
@@ -134,34 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114386080636956542
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1411736872748352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701352aaf5025134ca101d8dac05d117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 30ef3138018c5c64d95368381fcf6571, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114820414435588186}
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114820414435588186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,12 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dbf7de859035344b17dc143c00e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnPlayer1Score: {fileID: 11400000, guid: e6332b98a96be7d4b8441595f0408d48, type: 2}
-  OnPlayer2Score: {fileID: 11400000, guid: 3a4a07a28fb56bd46ba26f99e51abb06, type: 2}
-  OnBallHit: {fileID: 11400000, guid: 755563742d821c647a5b72eca1a356e0, type: 2}
   respawnTime: 1
   Velocity: 10
-  increments: 0.5
+  increments: 1.5
 --- !u!114 &114873039645578816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,12 +191,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 2
-  m_SendInterval: 0
-  m_SyncRotationAxis: 3
+  m_SendInterval: 0.04761905
+  m_SyncRotationAxis: 0
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 1
+  m_InterpolateRotation: 0
   m_InterpolateMovement: 1

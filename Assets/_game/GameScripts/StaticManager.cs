@@ -6,7 +6,8 @@ namespace Mangos
 {
     public class StaticManager : MonoBehaviour
     {
-        public static GameManager gameManager;
         public static PlayerSpawnManager spawnManager;
+        public static PongBall ball;
+        public static Debugger debugger;
     }
 }
