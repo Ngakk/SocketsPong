@@ -53,6 +53,7 @@ namespace Mangos
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+
             if (collision.CompareTag("Wall"))
             {
                 rigi.velocity = Vector3.Scale(rigi.velocity, verticalCol);

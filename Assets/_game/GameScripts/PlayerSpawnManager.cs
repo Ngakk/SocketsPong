@@ -35,8 +35,6 @@ namespace Mangos
         {
             base.OnServerReady(conn);
             Debug.Log("server ready: " + NetworkServer.connections.Count);
-            /*if (NetworkServer.connections.Count == 2)
-                Invoke("StartGame", 1);*/
         }
 
         public override void OnClientConnect(NetworkConnection connection)
@@ -57,11 +55,6 @@ namespace Mangos
         {
             NetworkServer.SetClientReady(conn);
             Debug.Log("Someone disconnected: " + NetworkServer.connections.Count);
-        }
-
-        private void StartGame()
-        {
-            StaticManager.gameManager.CmdStartGame();
         }
     }
 }

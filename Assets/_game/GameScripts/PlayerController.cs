@@ -23,6 +23,9 @@ namespace Mangos
             {
                 comps[i].material.color = Color.blue;
             }
+            Debug.Log("");
+            if (NetworkServer.connections.Count == 2 && base.isServer)
+                Invoke("StartGame", 1);
         }
 
         // Update is called once per frame
@@ -45,5 +48,11 @@ namespace Mangos
                 rigi.velocity = Vector3.zero;
             }
         }
+
+        private void StartGame()
+        {
+            StaticManager.gameManager.RpcStartGame();
+        }
+
     }
 }
