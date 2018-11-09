@@ -44,9 +44,6 @@ namespace Mangos
             {
                 rigi.velocity = Vector3.zero;
             }
-
         }
-
-        
     }
 }
